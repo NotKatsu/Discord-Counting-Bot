@@ -25,6 +25,10 @@ class configCommands(commands.Cog):
 
             setChannel.set_footer(text=f"Channel Set • Counting Channel {channel.id}")
             await ctx.respond(embed=setChannel)
+
+            countingChannel = self.bot.get_channel(channel.id)
+            await countingChannel.send(f":star: Counting channel has been set to this channel ({countingChannel.mention}). All you have to do is enter a number higher than the last number sent.\n\nWhoever wants to go first can just send the number **1**.")
+
         else:
             Error = discord.Embed(title="Failed To Set Counting Channel.",
                                     colour=discord.Colour(0xFAA61A),
