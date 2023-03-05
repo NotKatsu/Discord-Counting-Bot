@@ -26,17 +26,23 @@ def databaseSetup(databaseName: str) -> bool:
         return False
     
 def addChannel(channel: object) -> bool: 
-    connection = createConnection("database.db") 
-    cursor = connection.cursor() 
 
-    response = cursor.execute("SELECT channel FROM countingChannels WHERE guild = ?", (channel.guild.id,))
+    try:
+        connection = createConnection("database.db") 
+        cursor = connection.cursor() 
 
-    if response.fetchone() is None: 
-        cursor.execute("INSERT INTO countingChannels (guild, channel) VALUES (?, ?)", (channel.guild.id, channel.id))
-        connection.commit()
-    else:
-        cursor.execute("UPDATE countingChannels SET channel = ? WHERE guild = ?", (channel.id, channel.guild.id))
-        connection.commit()
+        response = cursor.execute("SELECT channel FROM countingChannels WHERE guild = ?", (channel.guild.id,))
+
+        if response.fetchone() is None: 
+            cursor.execute("INSERT INTO countingChannels (guild, channel) VALUES (?, ?)", (channel.guild.id, channel.id))
+            connection.commit()
+        else:
+            cursor.execute("UPDATE countingChannels SET channel = ? WHERE guild = ?", (channel.id, channel.guild.id))
+            connection.commit()
+            
+        return True
+    except: 
+        return False
     
 
     
