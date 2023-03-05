@@ -3,6 +3,7 @@ import discord
 from db import addChannel
 from discord.ext import commands
 from discord.commands import SlashCommandGroup
+from discord.ext.commands import has_permissions
 
 
 class configCommands(commands.Cog):
@@ -14,6 +15,7 @@ class configCommands(commands.Cog):
 
 
     @config.command() 
+    @has_permissions(manage_guild=True)
     async def channel(self, ctx, channel: discord.TextChannel): 
         """Set the Counting Channel for members to count in."""
         if addChannel(channel) is True: 
