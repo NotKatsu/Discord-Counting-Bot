@@ -26,7 +26,6 @@ def databaseSetup(databaseName: str) -> bool:
         return False
     
 def addChannel(channel: object) -> bool: 
-
     try:
         connection = createConnection("database.db") 
         cursor = connection.cursor() 
@@ -44,5 +43,5 @@ def addChannel(channel: object) -> bool:
     except: 
         return False
     
-
-    
+def addToCount(message: object) -> str:
+    print(message.content)

@@ -1,5 +1,6 @@
 import discord
 
+from db import addToCount
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
@@ -9,7 +10,7 @@ class messageEvents(commands.Cog):
 
     @commands.Cog.listener() 
     async def on_message(self, message):
-        print(message.content)
+        addToCount(message)
         
 
     @commands.Cog.listener()
