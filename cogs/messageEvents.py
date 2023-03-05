@@ -10,7 +10,10 @@ class messageEvents(commands.Cog):
 
     @commands.Cog.listener() 
     async def on_message(self, message):
-        addToCount(message)
+        response = addToCount(message)
+
+        if response == 5 or response == 0: 
+            await message.delete()
         
 
     @commands.Cog.listener()
