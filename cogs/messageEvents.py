@@ -10,7 +10,7 @@ class messageEvents(commands.Cog):
 
     @commands.Cog.listener() 
     async def on_message(self, message):
-        response = addToCount(message)
+        response = addToCount(message, self.bot.user.id)
 
         if response == 5 or response == 0: 
             await message.delete()
