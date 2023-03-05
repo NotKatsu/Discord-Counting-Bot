@@ -5,7 +5,6 @@ def createConnection(databaseName: str) -> object:
     return connection
 
 def tableSetup(connectionObject: object) -> bool: 
-    print("recieved table creation request")
     try:
         cursor = connectionObject.cursor() 
         cursor.execute("""CREATE TABLE IF NOT EXISTS countingChannels (
@@ -17,20 +16,27 @@ def tableSetup(connectionObject: object) -> bool:
         return False
 
 def databaseSetup(databaseName: str) -> bool: 
-    print("recieved request")
     try:
         connection = createConnection(databaseName)
-        print("created connection")
         if tableSetup(connection) == False: 
-            print("table setup complete")
             return False 
         else:
             return True
     except:
         return False
     
-def addChannel(channel: int) -> bool: 
-    print(channel)
+def addChannel(channel: object) -> bool: 
+    connection = createConnection("database.db") 
+    cursor = connection.cursor() 
+
+    response = cursor.execute("SELECT channel FROM countingChannels WHERE guild = ?", (channel.guild.id,))
+
+    if response.fetchone() is None: 
+        cursor.execute("INSERT INTO countingChannels (guild, channel) VALUES (?, ?)", (channel.guild.id, channel.id))
+        connection.commit()
+    else:
+        cursor.execute("UPDATE countingChannels SET channel = ? WHERE guild = ?", (channel.id, channel.guild.id))
+        connection.commit()
     
 
     
