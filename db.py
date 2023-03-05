@@ -81,7 +81,7 @@ def updateCount(message: object, count: int) -> Union[int, str]:
 def addToCount(message: object, botid) -> int:
     if message.author.id == botid:
         return
-    if message.content.isnumeric() is True: 
+    else:
         currentCount = getCount(message)
         countnewValue = currentCount + 1
         countingChannel = getChannel(message)
@@ -90,10 +90,11 @@ def addToCount(message: object, botid) -> int:
             return
         
         elif countingChannel == message.channel.id: 
-            if int(countnewValue) == int(message.content): 
-                updateCount(message, countnewValue)
-            else:
-                return 5
-    else: 
-        return 0
-    
+            if message.content.isnumeric() is True: 
+                if int(countnewValue) == int(message.content): 
+                    updateCount(message, countnewValue)
+                else:
+                    return 5
+            else: 
+                return 0
+            
