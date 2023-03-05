@@ -78,7 +78,9 @@ def updateCount(message: object, count: int) -> Union[int, str]:
     connection.commit()
 
     
-def addToCount(message: object) -> int:
+def addToCount(message: object, botid) -> int:
+    if message.author.id == botid:
+        return
     if message.content.isnumeric() is True: 
         currentCount = getCount(message)
         countnewValue = currentCount + 1
