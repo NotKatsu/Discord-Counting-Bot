@@ -13,4 +13,4 @@ if __name__ == "__main__":
     else: 
         print("Database initialization failed");quit()
 
-bot.run("TOKEN", reconnect=True)
+bot.run("MTA4MTk3MTI0Nzk3OTcwODQ4Nw.G6Zn8W.7mE_wWKdYEx4fw2XuY8d2_UqvWWOy5ZYlOW4Sc", reconnect=True)
